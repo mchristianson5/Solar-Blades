@@ -1,7 +1,6 @@
 import { StyleSheet, Text, View, Image } from "react-native";
-import { Header, Input, Button, Icon } from "react-native-elements";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-const MainHeader = () => {
+import { Header, Icon } from "react-native-elements";
+const MainHeader = ({ navigate, isHome }) => {
   return (
     <>
       <Header
@@ -15,20 +14,21 @@ const MainHeader = () => {
             source={require("../../icons/sun.png")}
           />
         }
+        leftComponent={
+          <>
+            {!isHome && (
+              <Icon
+                style={{ marginTop: 15 }}
+                name="arrow-left"
+                size={30}
+                color="white"
+                type="font-awesome"
+                onPress={() => navigate.goBack()}
+              />
+            )}
+          </>
+        }
       />
-      <View style={styles.inputContainer}>
-        <Input containerStyle={styles.inputUser} placeholder="Username"></Input>
-        <Input
-          containerStyle={styles.inputPassword}
-          placeholder="Password"
-        ></Input>
-        <Button
-          title={"Login!"}
-          containerStyle={styles.buttonContainer}
-          buttonStyle={{ backgroundColor: "rgba(255, 193, 7, 1)" }}
-          titleStyle={styles.buttonText}
-        ></Button>
-      </View>
     </>
   );
 };
@@ -37,24 +37,4 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: "#0000ff",
   },
-  inputUser: {
-    marginTop: 50,
-    width: 200,
-    textAlign: "center",
-  },
-  inputPassword: {
-    marginTop: 10,
-    width: 200,
-    textAlign: "center",
-  },
-  inputContainer: {
-    alignItems: "center",
-  },
-  buttonContainer: {
-    height: 50,
-    width: 150,
-    marginHorizontal: 50,
-    marginVertical: 10,
-  },
-  buttonText: { backgroundColor: "rgba(255, 193, 7, 1)" },
 });
